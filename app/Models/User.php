@@ -12,8 +12,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'username', 'password', 'role'
-    ];
+        'name','username', 'email', 'phone_number', 'password', 'role',    ];
 
     protected $hidden = [
         'password', 'remember_token',
@@ -42,5 +41,10 @@ class User extends Authenticatable
     public function notedPayments()
     {
         return $this->hasMany(Payment::class, 'noted_by');
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
     }
 }
