@@ -10,7 +10,7 @@ class Report extends Model
     use HasFactory;
 
     protected $fillable = [
-        'loan_id', 'payment_id', 'member_id', 'report_date'
+        'loan_id', 'payment_id', 'memberId', 'report_date'
     ];
 
     public function loan()
@@ -25,6 +25,6 @@ class Report extends Model
 
     public function member()
     {
-        return $this->belongsTo(User::class, 'member_id');
+        return $this->belongsTo(User::class, 'memberId');
     }
 }

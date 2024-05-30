@@ -10,7 +10,7 @@ class Payment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'loan_id', 'amount', 'member_id', 'noted_by', 'payment_date'
+        'loan_id', 'amount', 'memberId', 'noted_by', 'payment_date'
     ];
 
     public function loan()
@@ -20,7 +20,7 @@ class Payment extends Model
 
     public function member()
     {
-        return $this->belongsTo(User::class, 'member_id');
+        return $this->belongsTo(User::class, 'memberId');
     }
 
     public function noter()

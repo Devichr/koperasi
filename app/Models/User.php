@@ -12,7 +12,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'name','username', 'email', 'phone_number', 'password', 'role',    ];
+        'name','username', 'email', 'phone_number', 'password', 'role', 'address'   ];
 
     protected $hidden = [
         'password', 'remember_token',
@@ -20,7 +20,7 @@ class User extends Authenticatable
 
     public function loans()
     {
-        return $this->hasMany(Loan::class, 'member_id');
+        return $this->hasMany(Loan::class, 'memberId');
     }
 
     public function verifiedLoans()
@@ -35,7 +35,7 @@ class User extends Authenticatable
 
     public function payments()
     {
-        return $this->hasMany(Payment::class, 'member_id');
+        return $this->hasMany(Payment::class, 'memberId');
     }
 
     public function notedPayments()

@@ -10,12 +10,12 @@ class Loan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'amount', 'status', 'member_id', 'verified_by', 'approved_by'
+        'amount', 'status', 'memberId', 'verifiedBy', 'approvedBy'
     ];
 
     public function member()
     {
-        return $this->belongsTo(User::class, 'member_id');
+        return $this->belongsTo(User::class, 'memberId');
     }
 
     public function verifier()

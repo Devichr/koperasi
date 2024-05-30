@@ -10,6 +10,13 @@ class LoanController extends Controller
 {
     public function create()
     {
+        $user = Auth::user();
+        
+        // Cek apakah profil pengguna lengkap jika tidak lengkap maka akan diarahkan ke halaman profile edit
+        if (empty($user->address) || empty($user->phone_number)) {
+            return redirect()->route('profile.edit')->with('error', 'Please complete your profile before applying for a loan.');
+        }
+
         return view('loans.create');
     }
 
@@ -20,7 +27,7 @@ class LoanController extends Controller
         ]);
 
         Loan::create([
-            'user_id' => Auth::id(),
+            'memberId' => Auth::id(),
             'amount' => $request->amount,
             'status' => 'pending',
         ]);

@@ -19,7 +19,16 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next, $role)
     {
         if (!Auth::check() || Auth::user()->role !== $role) {
-            abort(403, 'Unauthorized access');
+            switch (Auth::user()->role) {
+                case 'anggota':
+                    return redirect()->route('loans.create');
+                case 'bendahara':
+                    return redirect()->route('treasurer.loans.index');
+                case 'ketua':
+                    return redirect()->route('chair.loans.index');
+                default:
+                    return redirect()->route('login');
+            }
         }
 
         return $next($request);
