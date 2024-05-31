@@ -42,4 +42,13 @@ class Loan extends Model
     {
         return $this->hasOne(Report::class);
     }
+public function scopeUnpaid($query)
+{
+    return $query->where('status', 'approved');
+}
+
+public function scopeTotalUnpaidAmount($query)
+{
+    return $query->where('status', 'approved')->sum('amount');
+}
 }

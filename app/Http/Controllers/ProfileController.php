@@ -11,7 +11,17 @@ class ProfileController extends Controller
 {
     public function edit()
     {
-        return view('profile.edit', ['User' => Auth::user()]);
+        $user = Auth::user();
+
+        if ($user->role === 'anggota') {
+            return view('profile.edit', ['user' => $user, 'layout' => 'layouts.member']);
+        } elseif ($user->role === 'bendahara') {
+            return view('profile.edit', ['user' => $user, 'layout' => 'layouts.treasurer']);
+        } elseif ($user->role === 'ketua') {
+            return view('profile.edit', ['user' => $user, 'layout' => 'layouts.chair']);
+        }
+
+        abort(403, 'Unauthorized access');
     }
 
     public function update(Request $request)
@@ -27,6 +37,12 @@ class ProfileController extends Controller
         /** @var \App\Models\User $user **/
         $user->save();
 
-        return redirect()->route('profile.edit')->with('success', 'Profile updated successfully.');
+        if ($user->role==='anggota') {
+            return redirect()->route('loans.create')->with('success', 'Profile updated successfully.');
+        } elseif ($user->role==='bendahara'){
+            return redirect()->route('treasurer.loans.index')->with('success', 'Profile updated successfully.');
+        } else {
+            return redirect()->route('chair.loans.index')->with('success', 'Profile updated successfully.');
+        }
     }
 }

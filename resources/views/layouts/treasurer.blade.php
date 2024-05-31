@@ -11,8 +11,8 @@
         <div class="flex w-1/2">
             <nav>
                 <ul class="flex space-x-4">
-                    <li class="h-12 ease-in-out hover:border-b-4 hover:bg-gradient-to-t hover:from-slate-100 hover:to-white hover:border-blue-400 {{ request()->routeIs('loans.create') ? 'font-bold border-b-4 rounded bg-gradient-to-t from-slate-100 to-white border-b-blue-400' : '' }} ">
-                        <a href="{{ route('loans.create') }}" class="mx-3">Pinjam Uang</a>
+                    <li class="h-12 ease-in-out hover:border-b-4 hover:bg-gradient-to-t hover:from-slate-100 hover:to-white hover:border-blue-400 {{ request()->routeIs('treasurer.loans.index') ? 'font-bold border-b-4 rounded bg-gradient-to-t from-slate-100 to-white border-b-blue-400' : '' }} ">
+                        <a href="{{ route('treasurer.loans.index') }}" class="mx-3">Pinjaman Menunggu</a>
                     </li>
                     <li class="h-12 ease-in-out hover:border-b-4 hover:bg-gradient-to-t hover:from-slate-100 hover:to-white hover:border-blue-400 {{ request()->routeIs('loans.history') ? 'font-bold border-b-4 rounded bg-gradient-to-t from-slate-100 to-white border-b-blue-400' : '' }}">
                         <a href="{{ route('loans.history') }}" class="mx-3 ">Riwayat Pinjaman</a>
@@ -59,7 +59,8 @@
                 }
             }
         }
-    </script>    <div class="container mx-auto">
+    </script>
+    <div class="container mx-auto">
         @yield('content')
     </div>
 </body>

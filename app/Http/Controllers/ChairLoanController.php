@@ -9,7 +9,7 @@ class ChairLoanController extends Controller
 {
     public function index()
     {
-        $loans = Loan::where('status', 'submitted')->get();
+        $loans = Loan::with('member')->where('status', 'submitted')->get();
         return view('chair.loans.index', compact('loans'));
     }
 
@@ -19,5 +19,10 @@ class ChairLoanController extends Controller
         'verifiedBy'=> Auth::id(),
     ]);
         return redirect()->route('chair.loans.index')->with('success', 'Loan approved.');
+    }
+    public function reject(Loan $loan)
+    {
+        $loan->update(['status' => 'rejected']);
+        return redirect()->route('chair.loans.index')->with('success', 'Loan rejected.');
     }
 }
