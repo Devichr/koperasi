@@ -26,9 +26,12 @@
 
         <div class="mb-4">
             <label for="nik" class="block text-gray-700 text-sm font-bold mb-2">NIK</label>
-            <input type="text" name="nik" id="nik" value="{{ old('nik') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            @if (Auth::user()->nik)
+                <input type="text" name="nik" id="nik" value="{{ Auth::user()->nik }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 bg-gray-100 leading-tight focus:outline-none focus:shadow-outline" readonly>
+            @else
+                <input type="text" name="nik" id="nik" value="{{ old('nik') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            @endif
         </div>
-
         <div class="mb-4">
             <label for="user_id" class="block text-gray-700 text-sm font-bold mb-2">No. Anggota</label>
             <input type="text" name="user_id" id="user_id" value="{{ Auth::user()->id }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" readonly>

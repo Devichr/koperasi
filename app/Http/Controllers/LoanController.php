@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+
 use App\Models\Loan;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -16,9 +18,11 @@ class LoanController extends Controller
 
     public function storeStep1(Request $request)
     {
+        $user = Auth::user();
+        $data = $request->all();
         $request->validate([
             'name' => 'required|string|max:255',
-            'nik' => 'required|string|max:255',
+            'nik' => 'required|string|max:255|unique:users,nik,' . $user->id,
             'pekerjaan' => 'required|string|max:255',
             'golongan' => 'nullable|string|max:255',
             'gaji_perbulan' => 'required|numeric',
@@ -26,8 +30,15 @@ class LoanController extends Controller
             'address' => 'required|string|max:255',
             'no_rekening' => 'required|string|max:255',
         ]);
+        /** @var \App\Models\User $user **/
+        $user->update([
+            'nik' => $data['nik'],
+            'no_rekening' => $data['no_rekening'],
+            'pekerjaan' => $data['pekerjaan'],
+            'gaji_perbulan' => $data['gaji_perbulan'],
+        ]);
 
-        $data = $request->all();
+
         Session::put('loan_step1', $data);
 
         return redirect()->route('loans.step2.create');
