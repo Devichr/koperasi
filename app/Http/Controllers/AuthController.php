@@ -18,7 +18,7 @@ class AuthController extends Controller
         $credentials = $request->only('username', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended(route('loans.create'));
+            return redirect()->intended(route('member.dashboard'));
         }
 
         return back()->withErrors([
