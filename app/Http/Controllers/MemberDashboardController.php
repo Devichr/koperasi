@@ -13,8 +13,8 @@ class MemberDashboardController extends Controller
     public function index()
     {
         $user = auth()->user();
-        // $savings = Saving::where('user_id', $user->id)->sum('amount');
-        $loans = Loan::where('memberId', $user->id)->sum('amount');
+        $loans = Loan::where('memberId', $user->id)->where('status','approved')->sum('amount');
+
         
         return view('member.dashboard', compact('loans'));
     }

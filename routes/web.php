@@ -4,17 +4,36 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LoanController;
+use App\Http\Controllers\SavingController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ChairLoanController;
 use App\Http\Controllers\TreasurerLoanController;
 use App\Http\Controllers\MemberDashboardController;
+use App\Http\Controllers\InstallmentController;
+use App\Http\Middleware\CheckStep1;
 
 Route::middleware('auth')->group(function () {
     // Route for member
     Route::middleware([RoleMiddleware::class . ':anggota'])->group(function () {
-        Route::get('loans/create', [LoanController::class, 'create'])->name('loans.create');
-        Route::post('loans', [LoanController::class, 'store'])->name('loans.store');
+
+        //route untuk pinjaman
+        Route::get('/loans/create/step1', [LoanController::class, 'createStep1'])->name('loans.create');
+        Route::post('/loans/create/step1', [LoanController::class, 'storeStep1'])->name('loans.step1.store');
+
+        Route::middleware([CheckStep1::class ])->group(function(){
+            Route::get('/loans/create/step2', [LoanController::class, 'createStep2'])->name('loans.step2.create');
+        });
+        Route::post('/loans', [LoanController::class, 'store'])->name('loans.store');
+
+        //route untuk pembayaran
+        Route::get('/savings/create', [SavingController::class, 'create'])->name('savings.create');
+        Route::post('/savings', [SavingController::class, 'store'])->name('savings.store');
+
+        //route untuk membayar angsuran
+        Route::get('/installments/pay', [InstallmentController::class, 'pay'])->name('installments.pay');
+        Route::post('/installments', [InstallmentController::class, 'store'])->name('installments.store');
+
         Route::get('/member/dashboard', [MemberDashboardController::class, 'index'])->name('member.dashboard');
     });
 

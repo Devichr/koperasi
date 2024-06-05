@@ -10,7 +10,10 @@ class Loan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'amount', 'status', 'memberId', 'verifiedBy', 'approvedBy'
+        'amount', 'status', 'memberId', 'verifiedBy', 'approvedBy',
+        'nik', 'pekerjaan', 'gaji_perbulan', 'alamat', 'no_rekening',
+        'beban_keluarga', 'hutang_lain', 'penanggung_jawab', 'gaji_penanggung_jawab',
+        'pekerjaan_penanggung_jawab', 'alasan_meminjam', 'pengajuan_bulan', 'masa_pinjaman'
     ];
 
     public function member()
