@@ -6,6 +6,11 @@ Dashboard
 @section('content')
 <div class="mt-5 bg-white p-2 pb-20">
     <h1 class="text-2xl font-bold mb-6">Dashboard</h1>
+    @if (session('success'))
+    <div class="mb-4 p-4 bg-green-100 text-green-700 border border-green-400 rounded">
+        {{ session('success') }}
+    </div>
+@endif
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <!-- Card Simpanan -->
             <div class="bg-white shadow-md rounded-lg p-6">

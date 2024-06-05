@@ -22,7 +22,7 @@ class LoanController extends Controller
         $data = $request->all();
         $request->validate([
             'name' => 'required|string|max:255',
-            'nik' => 'required|string|max:255|unique:users,nik,' . $user->id,
+            'nik' => 'required|string|max:16|unique:users,nik,' . $user->id,
             'pekerjaan' => 'required|string|max:255',
             'golongan' => 'nullable|string|max:255',
             'gaji_perbulan' => 'required|numeric',
@@ -35,6 +35,7 @@ class LoanController extends Controller
             'nik' => $data['nik'],
             'no_rekening' => $data['no_rekening'],
             'pekerjaan' => $data['pekerjaan'],
+            'golongan' => $data['golongan'],
             'gaji_perbulan' => $data['gaji_perbulan'],
         ]);
 
@@ -52,7 +53,6 @@ class LoanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nik' => 'required|numeric|max:16|min:16',
             'beban_keluarga' => 'required|integer',
             'hutang_lain' => 'required|string|max:255',
             'penanggung_jawab' => 'required|string|max:255',
@@ -74,7 +74,7 @@ class LoanController extends Controller
             'golongan' => $step1['golongan'],
             'gaji_perbulan' => $step1['gaji_perbulan'],
             'phone' => $step1['phone'],
-            'address' => $step1['address'],
+            'alamat' => $step1['address'],
             'no_rekening' => $step1['no_rekening'],
             'beban_keluarga' => $request->beban_keluarga,
             'hutang_lain' => $request->hutang_lain,
@@ -82,7 +82,7 @@ class LoanController extends Controller
             'gaji_penanggung_jawab' => $request->gaji_penanggung_jawab,
             'pekerjaan_penanggung_jawab' => $request->pekerjaan_penanggung_jawab,
             'alasan_meminjam' => $request->alasan_meminjam,
-            'nominal_peminjaman' => $request->nominal_peminjaman,
+            'amount' => $request->nominal_peminjaman,
             'pengajuan_bulan' => $request->pengajuan_bulan,
             'masa_pinjaman' => $request->masa_pinjaman,
             'status' => 'pending',
@@ -90,6 +90,6 @@ class LoanController extends Controller
 
         Session::forget('loan_step1');
 
-        return redirect()->route('loans.index')->with('success', 'Loan application submitted successfully.');
+        return redirect()->route('member.dashboard')->with('success', 'Loan application submitted successfully.');
     }
 }

@@ -46,15 +46,15 @@
                 <option value="lainnya" {{ Auth::user()->pekerjaan == 'lainnya' ? 'selected' : '' }}>Lainnya</option>
             </select>
         </div>
-
+        
         <div class="mb-4 hidden" id="golongan_pns">
             <label for="golongan" class="block text-gray-700 text-sm font-bold mb-2">Golongan PNS</label>
             <select name="golongan" id="golongan" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                <option value="">Pilih Golongan</option>
-                <option value="gol1">I</option>
-                <option value="gol2">II</option>
-                <option value="gol3">III</option>
-                <option value="gol4">IV</option>
+                <option value="" disabled {{ !Auth::user()->golongan ? 'selected' : ''}}>Pilih Golongan</option>
+                <option value="gol1" {{ Auth::user()->golongan == 'gol1' ? 'selected' : '' }}>I</option>
+                <option value="gol2" {{ Auth::user()->golongan == 'gol2' ? 'selected' : '' }}>II</option>
+                <option value="gol3" {{ Auth::user()->golongan == 'gol3' ? 'selected' : '' }}>III</option>
+                <option value="gol4" {{ Auth::user()->golongan == 'gol4' ? 'selected' : '' }}>IV</option>
             </select>        </div>
 
         <div class="mb-4">
