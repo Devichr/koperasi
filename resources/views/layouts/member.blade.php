@@ -14,7 +14,7 @@
                     <li class="h-12 ease-in-out hover:border-b-4 hover:bg-gradient-to-t hover:from-slate-100 hover:to-white hover:border-blue-400 {{ request()->routeIs('member.dashboard') ? 'font-bold border-b-4 rounded bg-gradient-to-t from-slate-100 to-white border-b-blue-400' : '' }} ">
                         <a href="{{ route('member.dashboard') }}" class="mx-3">Dashboard</a>
                     </li>
-                    <li class="h-12 ease-in-out hover:border-b-4 hover:bg-gradient-to-t hover:from-slate-100 hover:to-white hover:border-blue-400 {{ request()->routeIs('loans.create') ? 'font-bold border-b-4 rounded bg-gradient-to-t from-slate-100 to-white border-b-blue-400' : '' }} ">
+                    <li class="h-12 ease-in-out hover:border-b-4 hover:bg-gradient-to-t hover:from-slate-100 hover:to-white hover:border-blue-400 {{ request()->routeIs('loans.create','loans.step2.create') ? 'font-bold border-b-4 rounded bg-gradient-to-t from-slate-100 to-white border-b-blue-400' : '' }} ">
                         <a href="{{ route('loans.create') }}" class="mx-3">Pinjam Uang</a>
                     </li>
                     <li class="h-12 ease-in-out hover:border-b-4 hover:bg-gradient-to-t hover:from-slate-100 hover:to-white hover:border-blue-400 {{ request()->routeIs('loans.history') ? 'font-bold border-b-4 rounded bg-gradient-to-t from-slate-100 to-white border-b-blue-400' : '' }}">
