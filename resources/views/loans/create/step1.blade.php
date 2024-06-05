@@ -40,10 +40,10 @@
         <div class="mb-4">
             <label for="pekerjaan" class="block text-gray-700 text-sm font-bold mb-2">Pekerjaan</label>
             <select name="pekerjaan" id="pekerjaan" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-                <option value="">Pilih Pekerjaan</option>
-                <option value="swasta">Swasta</option>
-                <option value="pns">PNS</option>
-                <option value="lainnya">Lainnya</option>
+                <option value="" disabled {{ !Auth::user()->pekerjaan ? 'selected' : '' }}>Pilih Pekerjaan</option>
+                <option value="swasta" {{ Auth::user()->pekerjaan == 'swasta' ? 'selected' : '' }}>Swasta</option>
+                <option value="pns" {{ Auth::user()->pekerjaan == 'pns' ? 'selected' : '' }}>PNS</option>
+                <option value="lainnya" {{ Auth::user()->pekerjaan == 'lainnya' ? 'selected' : '' }}>Lainnya</option>
             </select>
         </div>
 
@@ -59,7 +59,7 @@
 
         <div class="mb-4">
             <label for="gaji_perbulan" class="block text-gray-700 text-sm font-bold mb-2">Gaji Perbulan</label>
-            <input type="text" name="gaji_perbulan" id="gaji_perbulan" value="{{ old('gaji_perbulan') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            <input type="text" name="gaji_perbulan" id="gaji_perbulan" value="{{ Auth::user()->gaji_perbulan }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
         </div>
 
         <div class="mb-4">
