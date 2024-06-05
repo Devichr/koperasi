@@ -4,9 +4,10 @@ Dashboard
 @endsection
 
 @section('content')
-        <h1 class="text-2xl font-bold mb-6">Dashboard</h1>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <!-- Card Simpanan -->
+<div class="mt-5 bg-white p-2 pb-20">
+    <h1 class="text-2xl font-bold mb-6">Dashboard</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <!-- Card Simpanan -->
             <div class="bg-white shadow-md rounded-lg p-6">
                 <h2 class="text-xl font-semibold mb-4">Simpanan</h2>
                 <p class="text-2xl font-bold text-gray-800 mb-4">Rp. 0</p>
@@ -29,7 +30,8 @@ Dashboard
             <div onclick="location.href='#'" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full max-w-36 min-h-48 max-h-48 min-w-36 justify-center items-center">
                     <img src="{{asset('asset/images/accounts_4839441.png')}}" class="mt-5 h-20 w-24">
                     <button  class="mt-2">Bayar Pinjaman</button>
-                    </div>
+                </div>
             </div>
+        </div>
     </div>
 @endsection

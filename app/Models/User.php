@@ -12,10 +12,21 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'name','username', 'email', 'phone_number', 'password', 'role', 'address'   ];
+        'name', 'username', 'email', 'password', 'nik', 'no_rekening', 'pekerjaan', 'gaji_perbulan', 'role',
+        ];
 
     protected $hidden = [
         'password', 'remember_token',
+    ];
+
+     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'gaji_perbulan' => 'decimal:2',
     ];
 
     public function loans()
