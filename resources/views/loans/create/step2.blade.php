@@ -27,27 +27,27 @@
         <div class="mb-4 flex gap-5">
             <div class="w-1/2">
                 <label for="hutang_lain" class="block text-gray-700 text-sm font-bold mb-2">Hutang Lainnya yang Masih Ditanggung</label>
-                <input type="text" name="hutang_lain" id="hutang_lain" readonly value=" {{ Auth::user()->loans->where('status','approved')->count() }} Hutang lain  " class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                <input type="text" name="hutang_lain" id="hutang_lain" readonly value=" {{ $user->loans->where('status','approved')->count() }} Hutang lain  " class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
             </div>
             <div class="w-1/2">
                 <label for="hutang_lain" class="block text-gray-700 text-sm font-bold mb-2">Hutang Lainnya yang ditanggung dalam rupiah</label>
-                <input type="text" name="hutang_lain" id="hutang_lain" readonly value="Rp. {{ Auth::user()->loans->where('status','approved')->sum('amount') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                <input type="text" name="hutang_lain" id="hutang_lain" readonly value="Rp. {{ $user->loans->where('status','approved')->sum('amount') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
             </div>
         </div>
 
         <div class="mb-4">
             <label for="penanggung_jawab" class="block text-gray-700 text-sm font-bold mb-2">Penanggung Jawab Pinjaman</label>
-            <input type="text" name="penanggung_jawab" id="penanggung_jawab" value="{{ Auth::user()->name }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            <input type="text" name="penanggung_jawab" id="penanggung_jawab" value="{{ $user->name }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
         </div>
 
         <div class="mb-4">
             <label for="gaji_penanggung_jawab" class="block text-gray-700 text-sm font-bold mb-2">Gaji Penanggung Jawab</label>
-            <input type="text" name="gaji_penanggung_jawab" id="gaji_penanggung_jawab" value="{{ Auth::user()->gaji_perbulan }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            <input type="text" name="gaji_penanggung_jawab" id="gaji_penanggung_jawab" value="{{ $user->gaji_perbulan }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
         </div>
 
         <div class="mb-4">
             <label for="pekerjaan_penanggung_jawab" class="block text-gray-700 text-sm font-bold mb-2">Pekerjaan Penanggung Jawab</label>
-            <input type="text" name="pekerjaan_penanggung_jawab" id="pekerjaan_penanggung_jawab" value="{{ Auth::user()->pekerjaan }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            <input type="text" name="pekerjaan_penanggung_jawab" id="pekerjaan_penanggung_jawab" value="{{ $user->pekerjaan }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
         </div>
 
         <div class="mb-4">

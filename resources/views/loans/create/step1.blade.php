@@ -21,60 +21,60 @@
 
         <div class="mb-4">
             <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nama</label>
-            <input type="text" name="name" id="name" value="{{ old('name', Auth::user()->name) }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
         </div>
 
         <div class="mb-4">
             <label for="nik" class="block text-gray-700 text-sm font-bold mb-2">NIK</label>
-            @if (Auth::user()->nik)
-                <input type="text" name="nik" id="nik" value="{{ Auth::user()->nik }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 bg-gray-100 leading-tight focus:outline-none focus:shadow-outline" readonly>
+            @if ($user->nik)
+                <input type="text" name="nik" id="nik" value="{{ $user->nik }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 bg-gray-100 leading-tight focus:outline-none focus:shadow-outline" readonly>
             @else
                 <input type="text" name="nik" id="nik" value="{{ old('nik') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
             @endif
         </div>
         <div class="mb-4">
             <label for="user_id" class="block text-gray-700 text-sm font-bold mb-2">No. Anggota</label>
-            <input type="text" name="user_id" id="user_id" value="{{ Auth::user()->id }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" readonly>
+            <input type="text" name="user_id" id="user_id" value="{{ $user->id }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" readonly>
         </div>
 
         <div class="mb-4">
             <label for="pekerjaan" class="block text-gray-700 text-sm font-bold mb-2">Pekerjaan</label>
             <select name="pekerjaan" id="pekerjaan" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-                <option value="" disabled {{ !Auth::user()->pekerjaan ? 'selected' : '' }}>Pilih Pekerjaan</option>
-                <option value="swasta" {{ Auth::user()->pekerjaan == 'swasta' ? 'selected' : '' }}>Swasta</option>
-                <option value="pns" {{ Auth::user()->pekerjaan == 'pns' ? 'selected' : '' }}>PNS</option>
-                <option value="lainnya" {{ Auth::user()->pekerjaan == 'lainnya' ? 'selected' : '' }}>Lainnya</option>
+                <option value="" disabled {{ !$user->pekerjaan ? 'selected' : '' }}>Pilih Pekerjaan</option>
+                <option value="swasta" {{ $user->pekerjaan == 'swasta' ? 'selected' : '' }}>Swasta</option>
+                <option value="pns" {{ $user->pekerjaan == 'pns' ? 'selected' : '' }}>PNS</option>
+                <option value="lainnya" {{ $user->pekerjaan == 'lainnya' ? 'selected' : '' }}>Lainnya</option>
             </select>
         </div>
         
         <div class="mb-4 hidden" id="golongan_pns">
             <label for="golongan" class="block text-gray-700 text-sm font-bold mb-2">Golongan PNS</label>
             <select name="golongan" id="golongan" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                <option value="" disabled {{ !Auth::user()->golongan ? 'selected' : ''}}>Pilih Golongan</option>
-                <option value="gol1" {{ Auth::user()->golongan == 'gol1' ? 'selected' : '' }}>I</option>
-                <option value="gol2" {{ Auth::user()->golongan == 'gol2' ? 'selected' : '' }}>II</option>
-                <option value="gol3" {{ Auth::user()->golongan == 'gol3' ? 'selected' : '' }}>III</option>
-                <option value="gol4" {{ Auth::user()->golongan == 'gol4' ? 'selected' : '' }}>IV</option>
+                <option value="" disabled {{ !$user->golongan ? 'selected' : ''}}>Pilih Golongan</option>
+                <option value="gol1" {{ $user->golongan == 'gol1' ? 'selected' : '' }}>I</option>
+                <option value="gol2" {{ $user->golongan == 'gol2' ? 'selected' : '' }}>II</option>
+                <option value="gol3" {{ $user->golongan == 'gol3' ? 'selected' : '' }}>III</option>
+                <option value="gol4" {{ $user->golongan == 'gol4' ? 'selected' : '' }}>IV</option>
             </select>        </div>
 
         <div class="mb-4">
             <label for="gaji_perbulan" class="block text-gray-700 text-sm font-bold mb-2">Gaji Perbulan</label>
-            <input type="text" name="gaji_perbulan" id="gaji_perbulan" value="{{ Auth::user()->gaji_perbulan }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            <input type="text" name="gaji_perbulan" id="gaji_perbulan" value="{{ $user->gaji_perbulan }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
         </div>
 
         <div class="mb-4">
             <label for="phone" class="block text-gray-700 text-sm font-bold mb-2">Nomor HP/Email</label>
-            <input type="text" name="phone" id="phone" value="{{ old('phone', Auth::user()->phone_number) }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            <input type="text" name="phone" id="phone" value="{{ old('phone', $user->phone_number) }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
         </div>
 
         <div class="mb-4">
             <label for="address" class="block text-gray-700 text-sm font-bold mb-2">Alamat</label>
-            <input type="text" name="address" id="address" value="{{ old('address', Auth::user()->address) }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            <input type="text" name="address" id="address" value="{{ old('address', $user->address) }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
         </div>
 
         <div class="mb-4">
             <label for="no_rekening" class="block text-gray-700 text-sm font-bold mb-2">No Rekening</label>
-            <input type="text" name="no_rekening" id="no_rekening" value="{{ old('no_rekening') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            <input type="text" name="no_rekening" id="no_rekening" value="{{ old('no_rekening', $user->no_rekening) }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
         </div>
 
         <div class="flex items-center justify-between">

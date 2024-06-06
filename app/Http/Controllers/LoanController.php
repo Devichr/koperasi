@@ -13,7 +13,8 @@ class LoanController extends Controller
 {
     public function createStep1()
     {
-        return view('loans.create.step1');
+        $user = Auth::user();
+        return view('loans.create.step1', compact('user'));
     }
 
     public function storeStep1(Request $request)
@@ -47,7 +48,8 @@ class LoanController extends Controller
 
     public function createStep2()
     {
-        return view('loans.create.step2');
+        $user = Auth::user();
+        return view('loans.create.step2',compact('user'));
     }
 
     public function store(Request $request)
