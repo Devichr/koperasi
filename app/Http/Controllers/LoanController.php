@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+
 
 class LoanController extends Controller
 {
@@ -31,7 +33,7 @@ class LoanController extends Controller
             'address' => 'required|string|max:255',
             'no_rekening' => 'required|string|max:255',
         ]);
-        /** @var \App\Models\User $user **/
+                /** @var \App\Models\User $user **/
         $user->update([
             'nik' => $data['nik'],
             'no_rekening' => $data['no_rekening'],
@@ -54,6 +56,8 @@ class LoanController extends Controller
 
     public function store(Request $request)
     {
+        $user = Auth::user();
+        $data = $request->all();
         $request->validate([
             'beban_keluarga' => 'required|integer',
             'hutang_lain' => 'required|string|max:255',
@@ -64,6 +68,9 @@ class LoanController extends Controller
             'nominal_peminjaman' => 'required|numeric',
             'pengajuan_bulan' => 'required|date',
             'masa_pinjaman' => 'required|integer|in:3,6,12',
+            'ktp' => 'required|file|mimes:jpeg,png,jpg,pdf|max:2048',
+            'kk' => 'required|file|mimes:jpeg,png,jpg,pdf|max:2048',
+            'slip_gaji' => 'required|file|mimes:jpeg,png,jpg,pdf|max:2048',
         ]);
 
         $step1 = Session::get('loan_step1');
@@ -88,6 +95,27 @@ class LoanController extends Controller
             'pengajuan_bulan' => $request->pengajuan_bulan,
             'masa_pinjaman' => $request->masa_pinjaman,
             'status' => 'pending',
+            'ktp' => Auth::user()->ktp,
+            'kk' => Auth::user()->kk,
+            'slip_gaji' => Auth::user()->slip_gaji,
+        ]);
+
+        $usernameFolder = 'documents/' . $user->username;
+        
+        // Handle file uploads
+        $ktpFileName = 'ktp_' . $user->username . '.' . $request->file('ktp')->getClientOriginalExtension();
+        $kkFileName = 'kk_' . $user->username . '.' . $request->file('kk')->getClientOriginalExtension();
+        $slipGajiFileName = 'slip_gaji_' . $user->username . '.' . $request->file('slip_gaji')->getClientOriginalExtension();
+
+        $ktpPath = $request->file('ktp')->storeAs($usernameFolder, $ktpFileName);
+        $kkPath = $request->file('kk')->storeAs($usernameFolder, $kkFileName);
+        $slipGajiPath = $request->file('slip_gaji')->storeAs($usernameFolder, $slipGajiFileName);
+
+                /** @var \App\Models\User $user **/
+        $user->update([
+            'ktp' => $ktpPath,
+            'kk' => $kkPath,
+            'slip_gaji' => $slipGajiPath,
         ]);
 
         Session::forget('loan_step1');

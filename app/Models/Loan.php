@@ -13,7 +13,7 @@ class Loan extends Model
         'amount', 'status', 'memberId', 'verifiedBy', 'approvedBy',
         'nik', 'pekerjaan', 'gaji_perbulan', 'alamat', 'no_rekening',
         'beban_keluarga', 'hutang_lain', 'penanggung_jawab', 'gaji_penanggung_jawab',
-        'pekerjaan_penanggung_jawab', 'alasan_meminjam', 'pengajuan_bulan', 'masa_pinjaman'
+        'pekerjaan_penanggung_jawab', 'alasan_meminjam', 'pengajuan_bulan', 'masa_pinjaman','ktp', 'kk', 'slip_gaji'
     ];
 
     public function member()

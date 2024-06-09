@@ -16,7 +16,7 @@
         </div>
     @endif
 
-    <form action="{{ route('loans.store') }}" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <form action="{{ route('loans.store') }}" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-4">
@@ -49,7 +49,21 @@
             <label for="pekerjaan_penanggung_jawab" class="block text-gray-700 text-sm font-bold mb-2">Pekerjaan Penanggung Jawab</label>
             <input type="text" name="pekerjaan_penanggung_jawab" id="pekerjaan_penanggung_jawab" value="{{ $user->pekerjaan }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
         </div>
-
+        <!-- KTP Upload -->
+        <div class="mb-4">
+            <label for="ktp" class="block text-gray-700 text-sm font-bold mb-2">Upload KTP</label>
+            <input type="file" name="ktp" id="ktp" accept="image/*,.pdf" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+        </div>
+        <!-- KK Upload -->
+        <div class="mb-4">
+            <label for="kk" class="block text-gray-700 text-sm font-bold mb-2">Upload KK</label>
+            <input type="file" name="kk" id="kk" accept="image/*,.pdf" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+        </div>
+        <!-- Slip Gaji Upload -->
+        <div class="mb-4">
+            <label for="slip_gaji" class="block text-gray-700 text-sm font-bold mb-2">Upload Slip Gaji</label>
+            <input type="file" name="slip_gaji" id="slip_gaji" accept="image/*,.pdf" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+        </div>
         <div class="mb-4">
             <label for="alasan_meminjam" class="block text-gray-700 text-sm font-bold mb-2">Alasan Meminjam</label>
             <textarea name="alasan_meminjam" id="alasan_meminjam" rows="3" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>{{ old('alasan_meminjam') }}</textarea>
