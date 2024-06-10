@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
 
 
 class LoanController extends Controller
@@ -102,14 +103,10 @@ class LoanController extends Controller
 
         $usernameFolder = 'documents/' . $user->username;
         
-        // Handle file uploads
-        $ktpFileName = 'ktp_' . $user->username . '.' . $request->file('ktp')->getClientOriginalExtension();
-        $kkFileName = 'kk_' . $user->username . '.' . $request->file('kk')->getClientOriginalExtension();
-        $slipGajiFileName = 'slip_gaji_' . $user->username . '.' . $request->file('slip_gaji')->getClientOriginalExtension();
 
-        $ktpPath = $request->file('ktp')->storeAs($usernameFolder, $ktpFileName);
-        $kkPath = $request->file('kk')->storeAs($usernameFolder, $kkFileName);
-        $slipGajiPath = $request->file('slip_gaji')->storeAs($usernameFolder, $slipGajiFileName);
+        $ktpPath = $request->file('ktp')->move(public_path($usernameFolder), 'ktp_' . $user->username . '.' . $request->file('ktp')->extension());
+        $kkPath = $request->file('kk')->move(public_path($usernameFolder), 'kk_' . $user->username . '.' . $request->file('kk')->extension());
+        $slipGajiPath = $request->file('slip_gaji')->move(public_path($usernameFolder), 'slip_gaji_' . $user->username . '.' . $request->file('slip_gaji')->extension());
 
                 /** @var \App\Models\User $user **/
         $user->update([
@@ -120,6 +117,12 @@ class LoanController extends Controller
 
         Session::forget('loan_step1');
 
-        return redirect()->route('member.dashboard')->with('success', 'Loan application submitted successfully.');
+        return redirect()->route('member.dashboard')->with('success', 'Pinjaman berhasil diajukan mohon menunggu kami memverifikasi pinjaman anda');
     }
+    public function showDetail(Loan $loan)
+{
+    Gate::authorize('view', $loan);
+    return view('loans.partial.detail', compact('loan'));
+}
+
 }

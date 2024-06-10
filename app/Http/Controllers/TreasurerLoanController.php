@@ -20,12 +20,12 @@ class TreasurerLoanController extends Controller
             'status' => 'submitted',
             'verifiedBy'=> Auth::id(),
     ]);
-        return redirect()->route('treasurer.loans.index')->with('success', 'Loan submitted to chair.');
+        return redirect()->route('treasurer.loans.index')->with('success', 'Pinjaman berhasil diteruskan ke ketua.');
     }
     
     public function reject(Loan $loan)
     {
         $loan->update(['status' => 'rejected']);
-        return redirect()->route('treasurer.loans.index')->with('success', 'Loan rejected.');
+        return redirect()->route('treasurer.loans.index')->with('success', 'Pinjaman berhasil ditolak.');
     }
 }

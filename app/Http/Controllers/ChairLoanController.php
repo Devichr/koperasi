@@ -18,11 +18,11 @@ class ChairLoanController extends Controller
         $loan->update(['status' => 'approved',
         'verifiedBy'=> Auth::id(),
     ]);
-        return redirect()->route('chair.loans.index')->with('success', 'Loan approved.');
+        return redirect()->route('chair.loans.index')->with('success', 'Pinjaman berhasil diterima.');
     }
     public function reject(Loan $loan)
     {
         $loan->update(['status' => 'rejected']);
-        return redirect()->route('chair.loans.index')->with('success', 'Loan rejected.');
+        return redirect()->route('chair.loans.index')->with('success', 'Pinjaman ditolak.');
     }
 }

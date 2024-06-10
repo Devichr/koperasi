@@ -51,7 +51,9 @@ Route::middleware('auth')->group(function () {
         Route::post('chair/loans/{loan}/reject', [ChairLoanController::class, 'reject'])->name('chair.loans.reject');
     });
 
+    
 
+    Route::get('/loans/{loan}/detail', [LoanController::class, 'showDetail'])->name('loans.detail');
     Route::get('profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('profile/edit', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('loans/history', [HistoryController::class, 'index'])->name('loans.history');
