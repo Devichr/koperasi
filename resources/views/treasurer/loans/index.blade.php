@@ -30,7 +30,9 @@ Dashboard
                                 Tidak ada
                             @endif
                         </div>
-                        <button onclick="loadLoanDetail('{{ route('loans.detail', $loan) }}')" class="text-blue-500 hover:text-blue-700">Lihat Detail...</button>
+                    <button type="button" class="text-blue-300" data-toggle="modal" data-target="#loanDetailModal" onclick="loadLoanDetails({{ $loan->id }})">
+                        Lihat detail...
+                    </button>
                     </div>
 
                     <div class="flex items-center space-x-4">
@@ -43,65 +45,57 @@ Dashboard
                             <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Reject</button>
                         </form>
                     </div>
-                </div>
+            </div>
             </li>
         @endforeach
         </ul>
     </div>
 </div>
-<div id="loanDetailModal" class="fixed inset-0 items-center justify-center overflow-scroll hidden bg-black bg-opacity-50">
-    <div class="flex justify-center">
-
-        <div class="bg-white p-6 rounded-lg shadow-lg w-3/4">
-        <h2 class="text-2xl font-bold mb-4">Loan Detail</h2>
-        <div id="loanDetailContent">
-        </div><h2 class="text-xl font-bold mb-4">Data Permohonan Pinjaman</h2>
-            <p><strong>Nama:</strong> {{ $loan->member->name }}</p>
-            <p><strong>NIK:</strong> {{ $loan->member->nik }}</p>
-            <p><strong>No. Anggota:</strong> {{ $loan->member->id }}</p>
-            <p><strong>Pekerjaan:</strong> {{ $loan->member->pekerjaan }}</p>
-            <p><strong>Gaji Perbulan:</strong> {{ $loan->member->gaji_perbulan }}</p>
-            <p><strong>Nomor HP/Email:</strong> {{ $loan->member->email }}</p>
-            <p><strong>Alamat:</strong> {{ $loan->member->alamat }}</p>
-            <p><strong>No. Rekening:</strong> {{ $loan->member->no_rekening }}</p>
-            <hr class="my-5">
-            <h2 class="text-xl font-bold mt-6 mb-4">Data Pinjaman</h2>
-            <p><strong>Beban Keluarga:</strong> {{ $loan->beban_keluarga }}</p>
-            <p><strong>Hutang Lainnya:</strong> {{ $loan->hutang_lainnya }}</p>
-            <p><strong>Penanggung Jawab:</strong> {{ $loan->penanggung_jawab }}</p>
-            <p><strong>Gaji Penanggung Jawab:</strong> {{ $loan->gaji_penanggung_jawab }}</p>
-            <p><strong>Pekerjaan Penanggung Jawab:</strong> {{ $loan->pekerjaan_penanggung_jawab }}</p>
-            <p><strong>Alasan Meminjam:</strong> {{ $loan->alasan_meminjam }}</p>
-            <p><strong>Nominal Peminjaman:</strong> {{ $loan->amount }}</p>
-            <p><strong>Pengajuan untuk Bulan:</strong> {{ $loan->pengajuan_bulan }}</p>
-            <p><strong>Masa Pinjaman:</strong> {{ $loan->masa_pinjaman }}</p>
-            <hr class="my-5">
-            <h2 class="text-xl font-bold mt-6 mb-4">Dokumen</h2>
-            <p><strong>KTP:</strong> <a href="{{ asset('asset/'. $loan->member->ktp) }}" target="_blank">Lihat KTP</a></p>
-            <p><strong>KK:</strong> <a href="{{ asset('asset/' . $loan->member->kk) }}" target="_blank">Lihat KK</a></p>
-            <p><strong>Slip Gaji:</strong> <a href="{{ asset('asset/' . $loan->member->slip_gaji) }}" target="_blank">Lihat Slip Gaji</a></p>
-
-        <button onclick="closeModal()" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded">Close</button>
+    <!-- Modal -->
+    <div id="loanDetailModal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <div class="mt-2">
+                                <p class="text-sm text-gray-500" id="loan-details-content">
+                                    <!-- Loan details will be loaded here by AJAX -->
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm" onclick="closeModal()">Close</button>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<script>
-     function openModal(content) {
-        document.getElementById('loanDetailContent').innerHTML = content;
-        document.getElementById('loanDetailModal').classList.remove('hidden');
-    }
 
-    function closeModal() {
-        document.getElementById('loanDetailModal').classList.add('hidden');
-    }
+    <script>
+        function loadLoanDetails(loanId) {
+            fetch(`/loans/${loanId}/detail`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('loan-details-content').innerHTML = data;
+                    document.getElementById('loanDetailModal').classList.remove('hidden');
+                })
+                .catch(error => console.error('Error fetching loan details:', error));
+        }
 
-    function loadLoanDetail(url) {
-        fetch(url)
-            .then(response => response.text())
-            .then(data => {
-                openModal(data);
-            })
-            .catch(error => console.error('Error loading loan detail:', error));
-    }
-</script>
+        function closeModal() {
+            document.getElementById('loanDetailModal').classList.add('hidden');
+        }
+
+        // Close the modal if the user clicks outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('loanDetailModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
 @endsection

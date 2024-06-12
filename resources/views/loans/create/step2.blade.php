@@ -18,7 +18,7 @@
 
     <form action="{{ route('loans.store') }}" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" enctype="multipart/form-data">
         @csrf
-
+        @method('PUT')
         <div class="mb-4">
             <label for="beban_keluarga" class="block text-gray-700 text-sm font-bold mb-2">Beban Keluarga yang Ditanggung</label>
             <input type="text" name="beban_keluarga" id="beban_keluarga" value="{{ old('beban_keluarga') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
@@ -49,21 +49,39 @@
             <label for="pekerjaan_penanggung_jawab" class="block text-gray-700 text-sm font-bold mb-2">Pekerjaan Penanggung Jawab</label>
             <input type="text" name="pekerjaan_penanggung_jawab" id="pekerjaan_penanggung_jawab" value="{{ $user->pekerjaan }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
         </div>
-        <!-- KTP Upload -->
-        <div class="mb-4">
-            <label for="ktp" class="block text-gray-700 text-sm font-bold mb-2">Upload KTP</label>
-            <input type="file" name="ktp" id="ktp" accept="image/*,.pdf" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+<div class="mb-4">
+    <label for="ktp" class="block text-gray-700 text-sm font-bold mb-2">KTP</label>
+    @if($user->ktp)
+        <div class="mb-2">
+            <a href="{{ asset($user->ktp) }}" target="_blank" class="text-blue-500 hover:underline">Lihat KTP yang sudah diunggah</a>
+            <input type="hidden" name="existing_ktp" value="{{ $user->ktp }}">
         </div>
-        <!-- KK Upload -->
-        <div class="mb-4">
-            <label for="kk" class="block text-gray-700 text-sm font-bold mb-2">Upload KK</label>
-            <input type="file" name="kk" id="kk" accept="image/*,.pdf" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+    @endif
+    <input type="file" name="ktp" id="ktp" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+</div>
+
+<div class="mb-4">
+    <label for="kk" class="block text-gray-700 text-sm font-bold mb-2">KK</label>
+    @if($user->kk)
+        <div class="mb-2">
+            <a href="{{ asset($user->kk) }}" target="_blank" class="text-blue-500 hover:underline">Lihat KK yang sudah diunggah</a>
+            <input type="hidden" name="existing_kk" value="{{ $user->kk }}">
         </div>
-        <!-- Slip Gaji Upload -->
-        <div class="mb-4">
-            <label for="slip_gaji" class="block text-gray-700 text-sm font-bold mb-2">Upload Slip Gaji</label>
-            <input type="file" name="slip_gaji" id="slip_gaji" accept="image/*,.pdf" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+    @endif
+    <input type="file" name="kk" id="kk" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+</div>
+
+<div class="mb-4">
+    <label for="slip_gaji" class="block text-gray-700 text-sm font-bold mb-2">Slip Gaji</label>
+    @if($user->slip_gaji)
+        <div class="mb-2">
+            <a href="{{ asset($user->slip_gaji) }}" target="_blank" class="text-blue-500 hover:underline">Lihat Slip Gaji yang sudah diunggah</a>
+            <input type="hidden" name="existing_slip_gaji" value="{{ $user->slip_gaji }}">
         </div>
+    @endif
+    <input type="file" name="slip_gaji" id="slip_gaji" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+</div>
+
         <div class="mb-4">
             <label for="alasan_meminjam" class="block text-gray-700 text-sm font-bold mb-2">Alasan Meminjam</label>
             <textarea name="alasan_meminjam" id="alasan_meminjam" rows="3" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>{{ old('alasan_meminjam') }}</textarea>

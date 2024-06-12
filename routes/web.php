@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
         Route::middleware([CheckStep1::class ])->group(function(){
             Route::get('/loans/create/step2', [LoanController::class, 'createStep2'])->name('loans.step2.create');
         });
-        Route::post('/loans', [LoanController::class, 'store'])->name('loans.store');
+        Route::put('/loans', [LoanController::class, 'store'])->name('loans.store');
 
         //route untuk pembayaran
         Route::get('/savings/create', [SavingController::class, 'create'])->name('savings.create');
